@@ -40,7 +40,6 @@ pca_3d = PCA(n_components=3)
 X_pca_3d = pca_3d.fit_transform(X_scaled)
 
 # Visualisation des clusters en 2D et 3D
-# Plot the 2D PCA-reduced data colored by cluster assignment
 plt.figure(figsize=(10, 7))
 plt.scatter(X_pca_2d[:, 0], X_pca_2d[:, 1], c=clusters, cmap='viridis', label='Cluster')
 plt.title('2D PCA of Iris Dataset (colored by cluster assignment)')
