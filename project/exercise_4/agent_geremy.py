@@ -1,22 +1,45 @@
-class Agent(object):
+from agent import Agent
+import numpy as np
 
-    """Docstring for Agent."""
+def default_policy(agent: Agent) -> str:
 
-    def __init__(self, initial_position, known_rewards) -> None:
-        self.position = initial_position
-        self.known_rewards = known_rewards
+    reward = agent.known_rewards.astype(int)
+    position = agent.position
+    print("rewards", reward)
+    print("agent", position)
 
-    def move(self, action, world_size) -> None:
-        """
-        the world is 1 dimensional
-        """
-        if action == "left":
-            if self.position > 0:
-                self.position -= 1
-        elif action == "right":
-            if self.position < world_size - 1:
-                self.position += 1
-        elif action == "none":
-            pass
+    non_zero_positions = np.where(reward != 0)[0]
+
+    if len(non_zero_positions) = 0:
+        next_position = np.argmax(np.abs(np.arange(len(reward)) - position))
+
+        if next_position < position:
+            action = "left"
+        elif next_position > position:
+            action = "right"
         else:
-            raise ValueError("incorrect action")
+            action = "none"
+    
+    else:
+
+        last_reward_index = np.where(agent.known_rewards != 0)[0][-1]
+
+        if last_reward_index in non_zero_positions:
+            if last_reward_index < position:
+                action = "left"
+            elif last_reward_index > position:
+                action = "right"
+            else:
+                action = "none"
+        else:
+
+            next_position = non_zero_positions[0]
+
+            if next_position < position:
+                action = "left"
+            elif next_position > position:
+                action = "right"
+            else:
+                action = "none"
+    
+    return action
